@@ -1,0 +1,18 @@
+# Local Neo4j for mdkg. Ports are bound to localhost only.
+# Start: docker compose up -d   Browser: http://localhost:7474
+services:
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: mdkg-neo4j
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      NEO4J_server_memory_heap_max__size: "1G"
+      NEO4J_server_memory_pagecache_size: "512M"
+      # Neo4j sends anonymous usage stats to neo4j.com by default. Off.
+      NEO4J_dbms_usage__report_enabled: "false"
+    volumes:
+      - ./data/neo4j:/data

@@ -1,0 +1,30 @@
+# What mdkg reads. Paths are relative to SOURCE_DIR (set in .env).
+
+[scope]
+# Folders or files to index, in this order. "." means the whole SOURCE_DIR.
+# Tip: put hub folders (people, projects) first, so later files can link to them.
+include = ["."]
+
+# Only these file types are read.
+extensions = [".md"]
+
+# Long files are split into episodes at "## " headings, then at paragraphs.
+max_words_per_episode = 1200
+
+[deny]
+# Never read, even if an include path covers them.
+# An entry with * is a glob (* also matches /), one ending in .md is a single file,
+# anything else is a folder from SOURCE_DIR.
+paths = [
+  ".git/",
+  "*/.git/*",
+  "*node_modules/*",
+  "*/.venv/*",
+  "*/.obsidian/*",
+  # Add folders or files you do not want to send to the LLM, for example:
+  # "private/",
+  # "journal/2024-01-01.md",
+]
+# File name endings that are never read.
+suffixes = []
+# Files with `sensitivity: private` in their frontmatter are always skipped too.
